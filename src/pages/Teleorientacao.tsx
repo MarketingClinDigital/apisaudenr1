@@ -9,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { User, Stethoscope, Send, Thermometer, HeartPulse, FileText } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
+import { downloadPlaceholderPdf } from '@/utils/pdfPlaceholder';
 
 const Teleorientacao: React.FC = () => {
   const [activeTab, setActiveTab] = React.useState('anamnese');
@@ -98,7 +99,73 @@ const Teleorientacao: React.FC = () => {
       toast.error("Por favor, preencha todos os campos de encaminhamento.");
       return;
     }
-    toast.success("Encaminhamento enviado com sucesso!");
+    const emitidoEm = new Date().toLocaleString('pt-BR', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+
+    const sintomasSelecionados =
+      sintomasData.sintomasReportados.length > 0
+        ? sintomasData.sintomasReportados.join(', ')
+        : 'Nenhum sintoma registrado';
+
+    downloadPlaceholderPdf(
+      'teleorientacao-demo.pdf',
+      'Teleorientação - Relatório Demonstrativo',
+      [
+        {
+          heading: 'Resumo do Atendimento',
+          items: [
+            `Emitido em: ${emitidoEm}`,
+            'Fluxo: Teleorientação Assistida',
+            'Status: Encaminhamento enviado',
+          ],
+        },
+        {
+          heading: 'Dados do Colaborador',
+          items: [
+            `Nome completo: ${anamneseData.nomeCompleto || 'Não informado'}`,
+            `Idade: ${anamneseData.idade || 'Não informada'}`,
+            `Função/Cargo: ${anamneseData.funcaoCargo || 'Não informado'}`,
+            `Setor: ${anamneseData.setor || 'Não informado'}`,
+          ],
+        },
+        {
+          heading: 'Anamnese Registrada',
+          items: [
+            `Queixa principal: ${anamneseData.queixaPrincipal || 'Não informada'}`,
+            `Histórico médico relevante: ${anamneseData.historicoMedico || 'Não informado'}`,
+            `Exposição ocupacional: ${anamneseData.exposicaoOcupacional || 'Não informada'}`,
+          ],
+        },
+        {
+          heading: 'Sinais Vitais e Sintomas',
+          items: [
+            `Temperatura: ${sintomasData.temperatura ? `${sintomasData.temperatura} °C` : 'Não informada'}`,
+            `Pressão arterial: ${
+              sintomasData.pressaoSistolica && sintomasData.pressaoDiastolica
+                ? `${sintomasData.pressaoSistolica}/${sintomasData.pressaoDiastolica} mmHg`
+                : 'Não informada'
+            }`,
+            `Sintomas selecionados: ${sintomasSelecionados}`,
+            `Observações clínicas: ${sintomasData.observacoesClinicas || 'Sem observações adicionais'}`,
+          ],
+        },
+        {
+          heading: 'Encaminhamento',
+          items: [
+            `Especialidade: ${encaminhamentoData.especialidade || 'Não informada'}`,
+            `Nível de urgência: ${encaminhamentoData.nivelUrgencia || 'Não informado'}`,
+            `Justificativa: ${encaminhamentoData.justificativa || 'Não informada'}`,
+          ],
+        },
+      ],
+    );
+
+    toast.success("Encaminhamento enviado! PDF demonstrativo gerado.");
   };
 
   return (
