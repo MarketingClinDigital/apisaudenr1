@@ -135,7 +135,7 @@ const Index: React.FC = () => {
         </div>
       </section>
 
-      <section className="rounded-3xl border border-clin-blue-100/70 bg-clin-blue-50/60 p-6 shadow-lg shadow-clin-blue-100/50 dark:border-clin-blue-500/20 dark:bg-clin-blue-900/20 dark:shadow-none">
+      <section className="rounded-3xl border border-clin-blue-100/70 p-6 shadow-lg shadow-clin-blue-100/50 dark:border-clin-blue-500/20 dark:bg-clin-blue-900/20 dark:shadow-none" style={{ backgroundColor: "rgba(219, 234, 243, 1)" }}>
         <h2 className="text-lg font-semibold text-clin-blue-800 dark:text-clin-blue-300">Conformidade com NR1</h2>
         <p className="mt-2 text-sm text-clin-blue-700 dark:text-clin-blue-200/80">
           Desenhado para atender à norma com processos digitais, trilhas de auditoria e monitoramento contínuo.

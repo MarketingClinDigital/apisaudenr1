@@ -9,6 +9,7 @@ import Triagem from "./pages/Triagem"; // Importando a nova página de Triagem
 import Teleorientacao from "./pages/Teleorientacao"; // Importando a nova página de Teleorientacao
 import Relatorios from "./pages/Relatorios"; // Importando a nova página de Relatorios
 import NotFound from "./pages/NotFound";
+import Backoffice from "./pages/Backoffice";
 
 const queryClient = new QueryClient();
 
@@ -24,6 +25,7 @@ const App = () => (
             <Route path="/triagem" element={<Triagem />} />
             <Route path="/teleorientacao" element={<Teleorientacao />} />
             <Route path="/relatorios" element={<Relatorios />} />
+            <Route path="/backoffice" element={<Backoffice />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

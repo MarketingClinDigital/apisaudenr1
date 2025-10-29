@@ -9,7 +9,7 @@ interface ClinLogoProps {
 const ClinLogo: React.FC<ClinLogoProps> = ({ className, imageClassName }) => {
   return (
     <div className={cn("flex items-center space-x-2", className)}>
-      <img src="/api-saude.png" alt="API Saúde logo" className={cn("h-10 w-auto mb-5", imageClassName)} />
+      <img src="/api-saude.png" alt="API Saúde logo" className={cn("h-10 w-auto max-lg:mt-[14px]", imageClassName)} style={{ margin: "0 -2px 20px 0" }} />
       <span className="sr-only">API Saúde</span>
     </div>
   );
