@@ -62,7 +62,19 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        "clin-primary": "#21968A", // Cor da logo CLIN Digital
+        "clin-blue": {
+          50: "#e0e3e8",
+          100: "#b3bcc9",
+          200: "#8090a6",
+          300: "#4d6482",
+          400: "#264267",
+          500: "#001d46", // Cor principal
+          600: "#001a3f",
+          700: "#001638",
+          800: "#001331",
+          900: "#000f2a",
+          950: "#000a1d",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",

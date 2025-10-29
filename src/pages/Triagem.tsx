@@ -8,13 +8,6 @@ import { Progress } from "@/components/ui/progress";
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import PersonalInfoForm, { PersonalInfoData } from '@/components/PersonalInfoForm'; // Importar o novo componente
-import {
-  glassCardClass,
-  heroCardClass,
-  pillBadgeClass,
-  primaryGradientButtonClass,
-  outlineSoftButtonClass,
-} from "@/styles/ui";
 
 interface Question {
   id: string;
@@ -170,200 +163,111 @@ const Triagem: React.FC = () => {
 
   const currentQuestion = psychosocialQuestions[currentQuestionIndex];
   const progress = ((currentQuestionIndex + 1) / psychosocialQuestions.length) * 100;
-  const radioOptionClass =
-    "flex items-center gap-3 rounded-2xl border border-[#C7E5FF] bg-white/75 p-3 transition hover:border-[#8ED4FF] hover:bg-[#EEF7FF]";
-  const tabTriggerClass =
-    "flex flex-col items-center justify-center gap-1 rounded-2xl border border-[#D2E5FF] bg-white/80 px-4 py-3 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-[#1F5BA4] transition data-[state=active]:border-transparent data-[state=active]:bg-white data-[state=active]:text-[#0E5CF7] data-[state=active]:shadow-[0_18px_32px_-26px_rgba(13,78,215,0.45)] sm:text-[0.8rem]";
 
   return (
-    <div className="space-y-8 pb-24">
-      <section className={`${heroCardClass} text-slate-900`}>
-        <div className="absolute -right-12 -top-16 h-40 w-40 rounded-full bg-[radial-gradient(circle_at_center,_rgba(0,175,255,0.22),_transparent_60%)]" />
-        <div className="absolute -left-8 -bottom-14 h-36 w-36 rounded-full bg-[radial-gradient(circle_at_center,_rgba(14,215,194,0.18),_transparent_60%)]" />
-        <div className="relative flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-          <div className="space-y-5">
-            <span className={pillBadgeClass}>Fluxo guiado</span>
-            <div className="space-y-3">
-              <h1 className="text-3xl font-semibold leading-tight sm:text-[28px]">
-                Triagem Inteligente
-              </h1>
-              <p className="max-w-md text-sm text-slate-500">
-                Identifique riscos rapidamente com questionários adaptativos e
-                acompanhe o colaborador em tempo real, mantendo a conformidade
-                com a NR1.
-              </p>
-            </div>
-          </div>
-
-          <div className="w-full sm:w-auto">
-            <div className="rounded-[28px] bg-gradient-to-br from-[#041E59] via-[#031645] to-[#010E2D] p-5 text-white shadow-[0_24px_60px_-38px_rgba(4,24,88,0.9)]">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/70">
-                Triagens concluídas
-              </p>
-              <div className="mt-4 flex items-end gap-3">
-                <span className="text-4xl font-semibold leading-none">1.248</span>
-                <span className="mb-1 text-xs text-white/70">NR1</span>
-              </div>
-              <div className="mt-5 h-2 w-full rounded-full bg-white/15">
-                <div className="h-full w-3/4 rounded-full bg-gradient-to-r from-[#0CF0D7] to-[#28B7FF]" />
-              </div>
-              <p className="mt-3 text-xs text-white/70">
-                +12% vs. último ciclo
-              </p>
-            </div>
-          </div>
+    <div className="space-y-6 pb-12">
+      <section className="rounded-3xl bg-gradient-to-br from-clin-blue-500 via-clin-blue-400 to-clin-blue-600 p-6 text-white shadow-xl">
+        <div className="flex flex-col gap-3">
+          <span className="text-xs font-semibold uppercase tracking-wide text-white/80">Fluxo guiado</span>
+          <h1 className="text-3xl font-semibold leading-tight">Triagem Inteligente</h1>
+            <p className="text-sm text-clin-blue-50/90">
+              Identifique riscos rapidamente com questionários adaptativos e acompanhe o colaborador em tempo real.
+            </p>
         </div>
       </section>
-
-      <Tabs defaultValue="psicossocial" className="space-y-6">
-        <TabsList className="mx-auto flex w-full items-center justify-between rounded-[32px] bg-[#EAF3FF] px-2 py-2 shadow-inner sm:gap-2">
+      <Tabs defaultValue="psicossocial" className="w-full space-y-6">
+        <TabsList className="grid w-full grid-cols-2 rounded-full bg-clin-blue-100/70 p-1 shadow-inner dark:bg-clin-blue-500/10">
           <TabsTrigger
             value="ocupacional"
-            className={tabTriggerClass}
+            className="rounded-full text-sm font-medium text-clin-blue-700 transition data-[state=active]:bg-white data-[state=active]:text-clin-blue-600 data-[state=active]:shadow-md dark:text-clin-blue-200 dark:data-[state=active]:bg-gray-900 dark:data-[state=active]:text-clin-blue-300"
           >
             Triagem Ocupacional
           </TabsTrigger>
           <TabsTrigger
             value="psicossocial"
-            className={tabTriggerClass}
+            className="rounded-full text-sm font-medium text-clin-blue-700 transition data-[state=active]:bg-white data-[state=active]:text-clin-blue-600 data-[state=active]:shadow-md dark:text-clin-blue-200 dark:data-[state=active]:bg-gray-900 dark:data-[state=active]:text-clin-blue-300"
           >
             Triagem Psicossocial
           </TabsTrigger>
         </TabsList>
-
         <TabsContent value="ocupacional" className="mt-6">
-          <Card className={`${glassCardClass} mx-auto max-w-2xl`}>
+          <Card className="mx-auto max-w-2xl border-none bg-white/95 shadow-xl shadow-clin-blue-100/40 dark:bg-gray-900/80 dark:shadow-none">
             <CardHeader>
-              <CardTitle className="text-2xl font-semibold text-slate-900">
-                Questionário de Rastreio Rápido (Q-RR)
-              </CardTitle>
-              <p className="text-sm text-slate-500">Questão 1 de 6</p>
-              <Progress value={16.6} className="mt-3 h-2 rounded-full bg-[#EAF5FF]" />
+              <CardTitle className="text-2xl font-semibold">Questionário de Rastreio Rápido (Q-RR)</CardTitle>
+              <p className="text-sm text-muted-foreground">Questão 1 de 6</p>
+              <Progress value={16.6} className="w-full mt-2" />
             </CardHeader>
             <CardContent className="space-y-6">
-              <h3 className="text-lg font-medium text-slate-800">
-                Apresenta febre (temperatura acima de 37.8°C)?
-              </h3>
+              <h3 className="text-lg font-medium">Apresenta febre (temperatura acima de 37.8°C)?</h3>
               <RadioGroup defaultValue="option-one" className="space-y-4">
-                <div className={radioOptionClass}>
+                <div className="flex items-center space-x-2 rounded-2xl border border-clin-blue-100/70 p-3 hover:bg-clin-blue-50 dark:border-clin-blue-500/20 dark:hover:bg-gray-800">
                   <RadioGroupItem value="sim" id="r1" />
-                  <Label htmlFor="r1" className="flex-grow cursor-pointer text-sm text-slate-700">
-                    Sim
-                  </Label>
+                  <Label htmlFor="r1" className="flex-grow cursor-pointer">Sim</Label>
                 </div>
-                <div className={radioOptionClass}>
+                <div className="flex items-center space-x-2 rounded-2xl border border-clin-blue-100/70 p-3 hover:bg-clin-blue-50 dark:border-clin-blue-500/20 dark:hover:bg-gray-800">
                   <RadioGroupItem value="nao" id="r2" />
-                  <Label htmlFor="r2" className="flex-grow cursor-pointer text-sm text-slate-700">
-                    Não
-                  </Label>
+                  <Label htmlFor="r2" className="flex-grow cursor-pointer">Não</Label>
                 </div>
               </RadioGroup>
-              <div className="mt-6 flex items-center justify-between">
-                <Button variant="outline" disabled className={outlineSoftButtonClass}>
-                  Anterior
-                </Button>
-                <Button className={primaryGradientButtonClass}>Próxima</Button>
+              <div className="flex justify-between mt-6">
+                <Button variant="outline" disabled>Anterior</Button>
+                <Button className="rounded-full bg-clin-blue-600 px-5 hover:bg-clin-blue-500">Próxima</Button>
               </div>
             </CardContent>
           </Card>
         </TabsContent>
-
         <TabsContent value="psicossocial" className="mt-6">
           {showPersonalInfoForm ? (
             <PersonalInfoForm onSubmit={handlePersonalInfoSubmit} />
           ) : (
-            <Card className={`${glassCardClass} mx-auto max-w-2xl`}>
+            <Card className="mx-auto max-w-2xl border-none bg-white/95 shadow-xl shadow-clin-blue-100/40 dark:bg-gray-900/85 dark:shadow-none">
               <CardHeader>
-                <CardTitle className="text-2xl font-semibold text-slate-900">
-                  Triagem Rápida Psicossocial de Risco
-                </CardTitle>
+                <CardTitle className="text-2xl font-semibold">Triagem Rápida Psicossocial de Risco</CardTitle>
                 {!triageResult ? (
-                  <p className="text-sm text-slate-500">
-                    Questão {currentQuestionIndex + 1} de {psychosocialQuestions.length}
-                  </p>
+                  <p className="text-sm text-muted-foreground">Questão {currentQuestionIndex + 1} de {psychosocialQuestions.length}</p>
                 ) : (
-                  <p className="text-sm text-slate-500">Triagem Concluída!</p>
+                  <p className="text-sm text-muted-foreground">Triagem Concluída!</p>
                 )}
-                <Progress value={progress} className="mt-3 h-2 rounded-full bg-[#EAF5FF]" />
+                <Progress value={progress} className="w-full mt-2" />
               </CardHeader>
               <CardContent className="space-y-6">
                 {!triageResult ? (
                   <>
-                    <h3 className="text-lg font-medium text-slate-800">
-                      {currentQuestion.text}
-                    </h3>
+                    <h3 className="text-lg font-medium">{currentQuestion.text}</h3>
                     <RadioGroup
                       value={answers[currentQuestion.id] || ""}
                       onValueChange={(value) => handleAnswerChange(currentQuestion.id, value)}
                       className="space-y-4"
                     >
                       {currentQuestion.options.map((option) => (
-                        <div key={option} className={radioOptionClass}>
+                        <div key={option} className="flex items-center space-x-2 rounded-2xl border border-clin-blue-100/70 p-3 hover:bg-clin-blue-50 dark:border-clin-blue-500/20 dark:hover:bg-gray-800">
                           <RadioGroupItem value={option} id={option} />
-                          <Label htmlFor={option} className="flex-grow cursor-pointer text-sm text-slate-700">
-                            {option}
-                          </Label>
+                          <Label htmlFor={option} className="flex-grow cursor-pointer">{option}</Label>
                         </div>
                       ))}
                     </RadioGroup>
-                    <div className="mt-6 flex items-center justify-between">
-                      <Button
-                        variant="outline"
-                        onClick={handlePrevious}
-                        disabled={isLoading}
-                        className={outlineSoftButtonClass}
-                      >
+                    <div className="flex justify-between mt-6">
+                      <Button variant="outline" onClick={handlePrevious} disabled={isLoading}>
                         Anterior
                       </Button>
-                      <Button
-                        className={primaryGradientButtonClass}
-                        onClick={handleNext}
-                        disabled={isLoading}
-                      >
-                        {currentQuestionIndex === psychosocialQuestions.length - 1
-                          ? "Finalizar"
-                          : "Próxima"}
+                      <Button className="rounded-full bg-clin-blue-600 px-6 text-white hover:bg-clin-blue-500" onClick={handleNext} disabled={isLoading}>
+                        {currentQuestionIndex === psychosocialQuestions.length - 1 ? "Finalizar" : "Próxima"}
                       </Button>
                     </div>
                   </>
                 ) : (
-                  <div className="space-y-4 text-center">
-                    <h3 className="text-xl font-semibold text-slate-900">
-                      Resultado da Triagem
-                    </h3>
-                    <p className="text-lg text-slate-700">
-                      Nível de Risco:{" "}
-                      <span
-                        className={`font-bold ${
-                          triageResult.level === "Alto Risco"
-                            ? "text-[#F04438]"
-                            : triageResult.level === "Médio Risco"
-                              ? "text-[#F59F00]"
-                              : "text-[#12B76A]"
-                        }`}
-                      >
-                        {triageResult.level}
-                      </span>
-                    </p>
-                    <p className="text-sm text-slate-500">
-                      Pontuação: {triageResult.score}
-                    </p>
-                    <p className="text-sm text-slate-600">
-                      Sugestão de Agendamento:{" "}
-                      <span className="font-medium text-slate-900">
-                        {triageResult.suggestion}
-                      </span>
-                    </p>
-                    <Button
-                      className={primaryGradientButtonClass}
-                      onClick={() => {
-                        setCurrentQuestionIndex(0);
-                        setAnswers({});
-                        setTriageResult(null);
-                        setShowPersonalInfoForm(true);
-                        setPersonalInfo(null);
-                      }}
-                    >
+                  <div className="text-center space-y-4">
+                    <h3 className="text-xl font-semibold">Resultado da Triagem:</h3>
+                    <p className="text-lg">Nível de Risco: <span className={`font-bold ${triageResult.level === 'Alto Risco' ? 'text-red-500' : triageResult.level === 'Médio Risco' ? 'text-yellow-500' : 'text-green-500'}`}>{triageResult.level}</span></p>
+                    <p className="text-md text-muted-foreground">Pontuação: {triageResult.score}</p>
+                    <p className="text-md">Sugestão de Agendamento: <span className="font-medium">{triageResult.suggestion}</span></p>
+                    <Button className="mt-4 rounded-full bg-clin-blue-600 px-6 text-white hover:bg-clin-blue-500" onClick={() => {
+                      setCurrentQuestionIndex(0);
+                      setAnswers({});
+                      setTriageResult(null);
+                      setShowPersonalInfoForm(true); // Go back to personal info form
+                      setPersonalInfo(null);
+                    }}>
                       Fazer Nova Triagem
                     </Button>
                   </div>

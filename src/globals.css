@@ -1,23 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@400;573;600&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --navy-dark: #001d46;
-    --navy-darker: #051945;
-    --teal-bright: #36E385;
-    --teal-light: #1aadea;
-    --purple-indicator: #9260f4;
-    --orange-indicator: #FF9B4A;
-    --pink-icon: #d5d260;
-    --text-gray: #797979;
-    --text-light-gray: #d9d9d9;
-    --text-dark-gray: #6e6a7c;
-    --text-primary: #24252c;
-
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
 
@@ -27,7 +13,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%;
+    --primary: 218 44% 13%; /* clin-blue-500 */
     --primary-foreground: 210 40% 98%;
 
     --secondary: 210 40% 96.1%;
@@ -65,20 +51,6 @@
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
-  @theme inline {
-    --color-navy-dark: var(--navy-dark);
-    --color-navy-darker: var(--navy-darker);
-    --color-teal-bright: var(--teal-bright);
-    --color-teal-light: var(--teal-light);
-    --color-purple-indicator: var(--purple-indicator);
-    --color-orange-indicator: var(--orange-indicator);
-    --color-pink-icon: var(--pink-icon);
-    --color-text-gray: var(--text-gray);
-    --color-text-light-gray: var(--text-light-gray);
-    --color-text-dark-gray: var(--text-dark-gray);
-    --color-text-primary: var(--text-primary);
-  }
-
   .dark {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
@@ -89,8 +61,8 @@
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 218 44% 13%; /* clin-blue-500 */
+    --primary-foreground: 210 40% 98%;
 
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
@@ -126,36 +98,4 @@
   body {
     @apply bg-background text-foreground;
   }
-}
-
-@utility heading-hero {
-  font-family: 'Lexend Deca', sans-serif;
-  font-size: 16px;
-  font-weight: 573;
-  line-height: 1.25;
-}
-
-@utility text-description {
-  font-family: 'Lexend Deca', sans-serif;
-  font-size: 9px;
-  font-weight: 400;
-  line-height: 1.5;
-}
-
-@utility heading-section {
-  font-family: 'Lexend Deca', sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-}
-
-@utility text-label {
-  font-family: 'Lexend Deca', sans-serif;
-  font-size: 11px;
-  font-weight: 400;
-}
-
-@utility text-card-title {
-  font-family: 'Lexend Deca', sans-serif;
-  font-size: 14px;
-  font-weight: 400;
 }

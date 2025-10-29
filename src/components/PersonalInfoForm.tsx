@@ -5,11 +5,6 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from 'sonner';
-import {
-  glassCardClass,
-  inputSurfaceClass,
-  labelMutedClass,
-} from "@/styles/ui";
 
 interface PersonalInfoFormProps {
   onSubmit: (data: PersonalInfoData) => void;
@@ -57,88 +52,37 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({ onSubmit }) => {
   };
 
   return (
-    <Card className={`${glassCardClass} mx-auto max-w-2xl`}>
+    <Card className="mx-auto max-w-2xl border-none bg-white/95 shadow-xl shadow-clin-blue-100/40 dark:bg-gray-900/85 dark:shadow-none">
       <CardHeader className="space-y-2 pb-4">
-        <CardTitle className="text-2xl font-semibold text-slate-900">
-          Suas Informações
-        </CardTitle>
-        <p className="text-sm text-slate-500">
-          Preencha para personalizarmos a triagem ao seu perfil.
-        </p>
+        <CardTitle className="text-2xl font-semibold text-gray-900 dark:text-gray-100">Suas Informações</CardTitle>
+        <p className="text-sm text-gray-500 dark:text-gray-400">Preencha para personalizarmos a triagem ao seu perfil.</p>
       </CardHeader>
       <CardContent className="pt-0">
         <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-5">
           <div className="space-y-2">
-            <Label htmlFor="name" className={labelMutedClass}>
-              Nome Completo
-            </Label>
-            <Input
-              id="name"
-              placeholder="Seu nome completo"
-              value={formData.name}
-              onChange={handleChange}
-              className={inputSurfaceClass}
-            />
+            <Label htmlFor="name" className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Nome Completo</Label>
+            <Input id="name" placeholder="Seu nome completo" value={formData.name} onChange={handleChange} className="rounded-xl border-clin-blue-100/60 bg-white/90 focus-visible:ring-clin-blue-500 dark:border-gray-700 dark:bg-gray-900/60" />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="phone" className={labelMutedClass}>
-              Telefone
-            </Label>
-            <Input
-              id="phone"
-              placeholder="(XX) XXXXX-XXXX"
-              value={formData.phone}
-              onChange={handleChange}
-              className={inputSurfaceClass}
-            />
+            <Label htmlFor="phone" className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Telefone</Label>
+            <Input id="phone" placeholder="(XX) XXXXX-XXXX" value={formData.phone} onChange={handleChange} className="rounded-xl border-clin-blue-100/60 bg-white/90 focus-visible:ring-clin-blue-500 dark:border-gray-700 dark:bg-gray-900/60" />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="email" className={labelMutedClass}>
-              Email
-            </Label>
-            <Input
-              id="email"
-              type="email"
-              placeholder="seu.email@exemplo.com"
-              value={formData.email}
-              onChange={handleChange}
-              className={inputSurfaceClass}
-            />
+            <Label htmlFor="email" className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Email</Label>
+            <Input id="email" type="email" placeholder="seu.email@exemplo.com" value={formData.email} onChange={handleChange} className="rounded-xl border-clin-blue-100/60 bg-white/90 focus-visible:ring-clin-blue-500 dark:border-gray-700 dark:bg-gray-900/60" />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="functionRole" className={labelMutedClass}>
-              Função/Cargo
-            </Label>
-            <Input
-              id="functionRole"
-              placeholder="Sua função na empresa"
-              value={formData.functionRole}
-              onChange={handleChange}
-              className={inputSurfaceClass}
-            />
+            <Label htmlFor="functionRole" className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Função/Cargo</Label>
+            <Input id="functionRole" placeholder="Sua função na empresa" value={formData.functionRole} onChange={handleChange} className="rounded-xl border-clin-blue-100/60 bg-white/90 focus-visible:ring-clin-blue-500 dark:border-gray-700 dark:bg-gray-900/60" />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="age" className={labelMutedClass}>
-              Idade
-            </Label>
-            <Input
-              id="age"
-              type="number"
-              placeholder="Sua idade"
-              value={formData.age}
-              onChange={handleChange}
-              className={inputSurfaceClass}
-            />
+            <Label htmlFor="age" className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Idade</Label>
+            <Input id="age" type="number" placeholder="Sua idade" value={formData.age} onChange={handleChange} className="rounded-xl border-clin-blue-100/60 bg-white/90 focus-visible:ring-clin-blue-500 dark:border-gray-700 dark:bg-gray-900/60" />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="sector" className={labelMutedClass}>
-              Setor
-            </Label>
-            <Select
-              onValueChange={(value) => handleSelectChange("sector", value)}
-              value={formData.sector}
-            >
-              <SelectTrigger id="sector" className={inputSurfaceClass}>
+            <Label htmlFor="sector" className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Setor</Label>
+            <Select onValueChange={(value) => handleSelectChange('sector', value)} value={formData.sector}>
+              <SelectTrigger id="sector" className="rounded-xl border-clin-blue-100/60 bg-white/90 focus:ring-clin-blue-500 dark:border-gray-700 dark:bg-gray-900/60">
                 <SelectValue placeholder="Selecione seu setor" />
               </SelectTrigger>
               <SelectContent>
@@ -151,10 +95,7 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({ onSubmit }) => {
             </Select>
           </div>
           <div className="flex justify-end pt-2">
-            <Button
-              type="submit"
-              className="rounded-full bg-gradient-to-r from-[#1C4CFF] via-[#0044FF] to-[#0CE4FF] px-8 py-3 text-white shadow-[0_20px_40px_-24px_rgba(11,71,224,0.8)] transition hover:from-[#1C4CFF] hover:via-[#005CFF] hover:to-[#15F2D0]"
-            >
+            <Button type="submit" className="rounded-full bg-clin-blue-600 px-6 py-2.5 text-white hover:bg-clin-blue-500">
               Iniciar Triagem
             </Button>
           </div>

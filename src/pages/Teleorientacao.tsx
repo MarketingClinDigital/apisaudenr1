@@ -7,16 +7,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { User, Stethoscope, Send, Thermometer, HeartPulse, FileText } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
-import { cn } from '@/lib/utils';
-import {
-  glassCardClass,
-  heroCardClass,
-  inputSurfaceClass,
-  labelMutedClass,
-  pillBadgeClass,
-  primaryGradientButtonClass,
-} from "@/styles/ui";
 
 const Teleorientacao: React.FC = () => {
   const [activeTab, setActiveTab] = React.useState('anamnese');
@@ -46,13 +38,7 @@ const Teleorientacao: React.FC = () => {
   });
 
   const allSymptoms = ["Febre", "Tosse", "Dor no Peito", "Falta de Ar", "Tontura", "Náusea", "Cansaço", "Dor de Cabeça"];
-  const fieldClasses = inputSurfaceClass;
-  const tabTriggerClass =
-    "flex flex-col items-center justify-center gap-1 rounded-2xl border border-[#D2E5FF] bg-white/80 px-4 py-3 text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[#1F5BA4] transition data-[state=active]:border-transparent data-[state=active]:bg-white data-[state=active]:text-[#0E5CF7] data-[state=active]:shadow-[0_18px_32px_-26px_rgba(13,78,215,0.45)] sm:text-[0.75rem]";
-  const symptomChipBaseClass =
-    "flex items-center gap-2 rounded-full border border-[#C7E3FF] bg-white px-3 py-2 text-xs font-semibold text-[#1F5BA4] transition hover:border-[#8DD1FF] hover:bg-[#EEF6FF]";
-  const highlightCardClass =
-    "rounded-[28px] bg-gradient-to-br from-[#041E59] via-[#02183F] to-[#010C29] p-5 text-white shadow-[0_24px_55px_-38px_rgba(5,24,88,0.85)]";
+  const fieldClasses = "rounded-xl border-clin-blue-100/60 bg-white/90 focus-visible:ring-clin-blue-500 dark:border-gray-700 dark:bg-gray-900/60";
 
   const handleAnamneseChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;
@@ -116,73 +102,34 @@ const Teleorientacao: React.FC = () => {
   };
 
   return (
-    <div className="space-y-8 pb-24">
-      <section className={`${heroCardClass} text-slate-900`}>
-        <div className="absolute -right-14 -top-16 h-48 w-48 rounded-full bg-[radial-gradient(circle_at_center,_rgba(0,175,255,0.22),_transparent_62%)]" />
-        <div className="absolute -left-10 -bottom-16 h-40 w-40 rounded-full bg-[radial-gradient(circle_at_center,_rgba(14,215,194,0.18),_transparent_62%)]" />
-        <div className="relative space-y-6">
-          <div className="space-y-4">
-            <span className={pillBadgeClass}>Atendimento digital</span>
-            <h1 className="text-3xl font-semibold leading-tight sm:text-[28px]">
-              Teleorientação Assistida
-            </h1>
-            <p className="max-w-xl text-sm text-slate-500">
-              Fluxo guiado para anamnese, monitoramento de sinais vitais e
-              encaminhamento clínico conectado ao time multiprofissional.
-            </p>
-          </div>
-
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div className={highlightCardClass}>
-              <div className="flex items-center justify-between">
-                <Thermometer className="h-8 w-8 text-[#7EF6FF]" />
-                <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/60">
-                  Tempo médio
-                </span>
-              </div>
-              <p className="mt-4 text-3xl font-semibold leading-none">08:30</p>
-              <p className="mt-3 text-xs text-white/70">
-                Triagem completa com registro dos sinais vitais prioritários.
-              </p>
-            </div>
-            <div className="rounded-[28px] border border-white/60 bg-white/85 p-5 shadow-[0_22px_50px_-38px_rgba(10,61,130,0.45)]">
-              <div className="flex items-center gap-3">
-                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-[#E1F3FF] via-white to-[#F5FBFF] text-[#1C4CFF]">
-                  <FileText className="h-5 w-5" />
-                </div>
-                <div>
-                  <p className="text-sm font-semibold text-slate-800">
-                    Encaminhamento em 1 clique
-                  </p>
-                  <p className="text-xs text-slate-500">
-                    Especialidade, urgência e justificativa integradas ao prontuário.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+    <div className="space-y-6 pb-12">
+      <section className="rounded-3xl bg-gradient-to-br from-clin-blue-500 via-clin-blue-400 to-clin-blue-600 p-6 text-white shadow-xl">
+        <span className="text-xs font-semibold uppercase tracking-wide text-white/80">Atendimento digital</span>
+        <h1 className="mt-2 text-3xl font-semibold leading-tight">Teleorientação Assistida</h1>
+        <p className="mt-3 text-sm text-clin-blue-50/90">
+          Fluxo guiado para anamnese, acompanhamento de sintomas e encaminhamento clínico em poucos toques.
+        </p>
       </section>
 
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className="flex w-full items-center justify-between rounded-[32px] bg-[#EAF3FF] px-2 py-2 shadow-inner sm:gap-2">
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full space-y-6">
+        <TabsList className="grid w-full grid-cols-3 rounded-full bg-clin-blue-100/70 p-1 shadow-inner dark:bg-clin-blue-500/10">
           <TabsTrigger
             value="anamnese"
-            className={tabTriggerClass}
+            className="flex items-center justify-center gap-2 rounded-full text-xs font-semibold uppercase tracking-wide text-clin-blue-700 transition data-[state=active]:bg-white data-[state=active]:text-clin-blue-600 data-[state=active]:shadow-md dark:text-clin-blue-200 dark:data-[state=active]:bg-gray-900 dark:data-[state=active]:text-clin-blue-300"
           >
             <User className="h-4 w-4" />
             <span>Anamnese</span>
           </TabsTrigger>
           <TabsTrigger
             value="sintomas"
-            className={tabTriggerClass}
+            className="flex items-center justify-center gap-2 rounded-full text-xs font-semibold uppercase tracking-wide text-clin-blue-700 transition data-[state=active]:bg-white data-[state=active]:text-clin-blue-600 data-[state=active]:shadow-md dark:text-clin-blue-200 dark:data-[state=active]:bg-gray-900 dark:data-[state=active]:text-clin-blue-300"
           >
             <Stethoscope className="h-4 w-4" />
             <span>Sintomas</span>
           </TabsTrigger>
           <TabsTrigger
             value="encaminhamento"
-            className={tabTriggerClass}
+            className="flex items-center justify-center gap-2 rounded-full text-xs font-semibold uppercase tracking-wide text-clin-blue-700 transition data-[state=active]:bg-white data-[state=active]:text-clin-blue-600 data-[state=active]:shadow-md dark:text-clin-blue-200 dark:data-[state=active]:bg-gray-900 dark:data-[state=active]:text-clin-blue-300"
           >
             <Send className="h-4 w-4" />
             <span>Encaminhar</span>
@@ -190,39 +137,27 @@ const Teleorientacao: React.FC = () => {
         </TabsList>
 
         <TabsContent value="anamnese" className="mt-6">
-          <Card className={`${glassCardClass} mx-auto max-w-3xl`}>
+          <Card className="mx-auto max-w-3xl border-none bg-white/95 shadow-xl shadow-clin-blue-100/40 dark:bg-gray-900/85 dark:shadow-none">
             <CardHeader className="space-y-2">
-              <CardTitle className="text-2xl font-semibold text-slate-900">
-                Protocolo de Anamnese Adaptado
-              </CardTitle>
-              <p className="text-sm text-slate-500">
-                Coleta de informações essenciais para contextualizar o atendimento.
-              </p>
+              <CardTitle className="text-2xl font-semibold text-gray-900 dark:text-gray-100">Protocolo de Anamnese Adaptado</CardTitle>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Coleta de informações essenciais para contextualizar o atendimento.</p>
             </CardHeader>
             <CardContent className="pt-0">
               <form onSubmit={handleAnamneseSubmit} className="grid grid-cols-1 gap-5">
                 <div className="space-y-2">
-                  <Label htmlFor="nomeCompleto" className={labelMutedClass}>
-                    Nome Completo
-                  </Label>
+                  <Label htmlFor="nomeCompleto" className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Nome Completo</Label>
                   <Input id="nomeCompleto" placeholder="Digite o nome do paciente" value={anamneseData.nomeCompleto} onChange={handleAnamneseChange} className={fieldClasses} />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="idade" className={labelMutedClass}>
-                    Idade
-                  </Label>
+                  <Label htmlFor="idade" className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Idade</Label>
                   <Input id="idade" type="number" placeholder="Idade" value={anamneseData.idade} onChange={handleAnamneseChange} className={fieldClasses} />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="funcaoCargo" className={labelMutedClass}>
-                    Função/Cargo
-                  </Label>
+                  <Label htmlFor="funcaoCargo" className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Função/Cargo</Label>
                   <Input id="funcaoCargo" placeholder="Função na empresa" value={anamneseData.funcaoCargo} onChange={handleAnamneseChange} className={fieldClasses} />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="setor" className={labelMutedClass}>
-                    Setor
-                  </Label>
+                  <Label htmlFor="setor" className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Setor</Label>
                   <Select onValueChange={handleAnamneseSelectChange} value={anamneseData.setor}>
                     <SelectTrigger id="setor" className={fieldClasses}>
                       <SelectValue placeholder="Selecione o setor" />
@@ -237,25 +172,19 @@ const Teleorientacao: React.FC = () => {
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="queixaPrincipal" className={labelMutedClass}>
-                    Queixa Principal
-                  </Label>
+                  <Label htmlFor="queixaPrincipal" className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Queixa Principal</Label>
                   <Textarea id="queixaPrincipal" placeholder="Descreva a queixa principal do paciente" rows={3} value={anamneseData.queixaPrincipal} onChange={handleAnamneseChange} className={fieldClasses} />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="historicoMedico" className={labelMutedClass}>
-                    Histórico Médico Relevante
-                  </Label>
+                  <Label htmlFor="historicoMedico" className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Histórico Médico Relevante</Label>
                   <Textarea id="historicoMedico" placeholder="Doenças preexistentes, alergias, medicamentos em uso" rows={3} value={anamneseData.historicoMedico} onChange={handleAnamneseChange} className={fieldClasses} />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="exposicaoOcupacional" className={labelMutedClass}>
-                    Exposição Ocupacional
-                  </Label>
+                  <Label htmlFor="exposicaoOcupacional" className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Exposição Ocupacional</Label>
                   <Textarea id="exposicaoOcupacional" placeholder="Agentes químicos, físicos ou biológicos a que está exposto" rows={3} value={anamneseData.exposicaoOcupacional} onChange={handleAnamneseChange} className={fieldClasses} />
                 </div>
                 <div className="flex justify-end pt-2">
-                  <Button type="submit" className={primaryGradientButtonClass}>
+                  <Button type="submit" className="rounded-full bg-clin-blue-600 px-6 py-2.5 text-white hover:bg-clin-blue-500">
                     Salvar e continuar
                   </Button>
                 </div>
@@ -265,62 +194,58 @@ const Teleorientacao: React.FC = () => {
         </TabsContent>
 
         <TabsContent value="sintomas" className="mt-6">
-          <Card className={`${glassCardClass} mx-auto max-w-3xl`}>
+          <Card className="mx-auto max-w-3xl border-none bg-white/95 shadow-xl shadow-clin-blue-100/40 dark:bg-gray-900/85 dark:shadow-none">
             <CardHeader className="space-y-2">
-              <CardTitle className="text-2xl font-semibold text-slate-900">
-                Visualização de Sintomas
-              </CardTitle>
-              <p className="text-sm text-slate-500">
-                Mapeamento e avaliação dos sintomas apresentados.
-              </p>
+              <CardTitle className="text-2xl font-semibold text-gray-900 dark:text-gray-100">Visualização de Sintomas</CardTitle>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Mapeamento e avaliação dos sintomas apresentados.</p>
             </CardHeader>
             <CardContent className="pt-0">
               <form onSubmit={handleSintomasSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 gap-5">
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
-                      <Label htmlFor="temperatura" className="flex items-center gap-2 text-sm font-semibold text-slate-800">
-                        <Thermometer className="h-4 w-4" />
+                      <Label htmlFor="temperatura" className="flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-gray-200">
+                        <Thermometer className="h-4 w-4 text-orange-500" />
                         <span>Temperatura</span>
                       </Label>
-                      <span className="rounded-full bg-[#E6F5FF] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#1F5BA4]">
+                      <Badge variant="secondary" className="rounded-full bg-orange-100/70 px-3 py-1 text-xs font-medium text-orange-700 dark:bg-orange-500/10 dark:text-orange-300">
                         Vital
-                      </span>
+                      </Badge>
                     </div>
                     <Input id="temperatura" placeholder="36.5" value={sintomasData.temperatura} onChange={handleSintomasChange} className={fieldClasses} />
-                    <p className="text-xs text-slate-400">°C - Temperatura corporal</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">°C - Temperatura corporal</p>
                   </div>
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
-                      <Label htmlFor="pressaoSistolica" className="flex items-center gap-2 text-sm font-semibold text-slate-800">
-                        <HeartPulse className="h-4 w-4" />
+                      <Label htmlFor="pressaoSistolica" className="flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-gray-200">
+                        <HeartPulse className="h-4 w-4 text-red-500" />
                         <span>Pressão Sistólica</span>
                       </Label>
-                      <span className="rounded-full bg-[#E6F5FF] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#1F5BA4]">
+                      <Badge variant="secondary" className="rounded-full bg-red-100/70 px-3 py-1 text-xs font-medium text-red-700 dark:bg-red-500/10 dark:text-red-300">
                         Vital
-                      </span>
+                      </Badge>
                     </div>
                     <Input id="pressaoSistolica" placeholder="120" value={sintomasData.pressaoSistolica} onChange={handleSintomasChange} className={fieldClasses} />
-                    <p className="text-xs text-slate-400">mmHg</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">mmHg</p>
                   </div>
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
-                      <Label htmlFor="pressaoDiastolica" className="flex items-center gap-2 text-sm font-semibold text-slate-800">
-                        <HeartPulse className="h-4 w-4" />
+                      <Label htmlFor="pressaoDiastolica" className="flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-gray-200">
+                        <HeartPulse className="h-4 w-4 text-red-500" />
                         <span>Pressão Diastólica</span>
                       </Label>
-                      <span className="rounded-full bg-[#E6F5FF] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#1F5BA4]">
+                      <Badge variant="secondary" className="rounded-full bg-red-100/70 px-3 py-1 text-xs font-medium text-red-700 dark:bg-red-500/10 dark:text-red-300">
                         Vital
-                      </span>
+                      </Badge>
                     </div>
                     <Input id="pressaoDiastolica" placeholder="80" value={sintomasData.pressaoDiastolica} onChange={handleSintomasChange} className={fieldClasses} />
-                    <p className="text-xs text-slate-400">mmHg</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">mmHg</p>
                   </div>
                 </div>
 
                 <div className="space-y-3">
-                  <Label className="flex items-center gap-2 text-sm font-semibold text-slate-800">
-                    <FileText className="h-4 w-4" />
+                  <Label className="flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-gray-200">
+                    <FileText className="h-4 w-4 text-purple-500" />
                     <span>Sintomas Reportados</span>
                   </Label>
                   <div className="grid grid-cols-2 gap-3">
@@ -331,11 +256,7 @@ const Teleorientacao: React.FC = () => {
                           key={symptom}
                           type="button"
                           variant="outline"
-                          className={cn(
-                            symptomChipBaseClass,
-                            isSelected &&
-                              "border-transparent bg-gradient-to-r from-[#033A7A] via-[#0D58CA] to-[#1A75FF] text-white shadow-[0_22px_45px_-28px_rgba(13,89,202,0.65)]"
-                          )}
+                          className={`justify-start rounded-2xl border-clin-blue-100/60 py-3 text-sm font-medium transition ${isSelected ? "bg-clin-blue-600 text-white hover:bg-clin-blue-500" : "bg-white/80 hover:bg-clin-blue-50 dark:bg-gray-900/60 dark:hover:bg-gray-800"}`}
                           onClick={() => handleSymptomToggle(symptom)}
                         >
                           {symptom}
@@ -346,13 +267,11 @@ const Teleorientacao: React.FC = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="observacoesClinicas" className={labelMutedClass}>
-                    Observações Clínicas
-                  </Label>
+                  <Label htmlFor="observacoesClinicas" className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Observações Clínicas</Label>
                   <Textarea id="observacoesClinicas" placeholder="Observações adicionais" rows={4} value={sintomasData.observacoesClinicas} onChange={handleSintomasChange} className={fieldClasses} />
                 </div>
                 <div className="flex justify-end">
-                  <Button type="submit" className={primaryGradientButtonClass}>
+                  <Button type="submit" className="rounded-full bg-clin-blue-600 px-6 py-2.5 text-white hover:bg-clin-blue-500">
                     Salvar sintomas
                   </Button>
                 </div>
@@ -362,22 +281,16 @@ const Teleorientacao: React.FC = () => {
         </TabsContent>
 
         <TabsContent value="encaminhamento" className="mt-6">
-          <Card className={`${glassCardClass} mx-auto max-w-3xl`}>
+          <Card className="mx-auto max-w-3xl border-none bg-white/95 shadow-xl shadow-clin-blue-100/40 dark:bg-gray-900/85 dark:shadow-none">
             <CardHeader className="space-y-2">
-              <CardTitle className="text-2xl font-semibold text-slate-900">
-                Encaminhamento Integrado
-              </CardTitle>
-              <p className="text-sm text-slate-500">
-                Defina especialidade, urgência e justificativas com poucos toques.
-              </p>
+              <CardTitle className="text-2xl font-semibold text-gray-900 dark:text-gray-100">Encaminhamento Integrado</CardTitle>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Defina especialidade, urgência e justificativas com poucos toques.</p>
             </CardHeader>
             <CardContent className="pt-0">
               <form onSubmit={handleEncaminhamentoSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 gap-5">
                   <div className="space-y-2">
-                    <Label htmlFor="especialidade" className={labelMutedClass}>
-                      Especialidade
-                    </Label>
+                    <Label htmlFor="especialidade" className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Especialidade</Label>
                     <Select onValueChange={(value) => handleEncaminhamentoSelectChange('especialidade', value)} value={encaminhamentoData.especialidade}>
                       <SelectTrigger id="especialidade" className={fieldClasses}>
                         <SelectValue placeholder="Selecione a especialidade" />
@@ -391,9 +304,7 @@ const Teleorientacao: React.FC = () => {
                     </Select>
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="nivelUrgencia" className={labelMutedClass}>
-                      Nível de urgência
-                    </Label>
+                    <Label htmlFor="nivelUrgencia" className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Nível de urgência</Label>
                     <Select onValueChange={(value) => handleEncaminhamentoSelectChange('nivelUrgencia', value)} value={encaminhamentoData.nivelUrgencia}>
                       <SelectTrigger id="nivelUrgencia" className={fieldClasses}>
                         <SelectValue placeholder="Selecione a urgência" />
@@ -407,13 +318,11 @@ const Teleorientacao: React.FC = () => {
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="justificativa" className={labelMutedClass}>
-                    Justificativa
-                  </Label>
+                  <Label htmlFor="justificativa" className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Justificativa</Label>
                   <Textarea id="justificativa" placeholder="Descreva o motivo do encaminhamento" rows={4} value={encaminhamentoData.justificativa} onChange={handleEncaminhamentoChange} className={fieldClasses} />
                 </div>
                 <div className="flex justify-end">
-                  <Button type="submit" className={cn(primaryGradientButtonClass, "flex items-center gap-2")}>
+                  <Button type="submit" className="flex items-center gap-2 rounded-full bg-clin-blue-600 px-6 py-2.5 text-white hover:bg-clin-blue-500">
                     <Send className="h-4 w-4" />
                     <span>Enviar encaminhamento</span>
                   </Button>
