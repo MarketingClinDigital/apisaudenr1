@@ -84,9 +84,13 @@ const Relatorios: React.FC = () => {
   return (
     <div className="space-y-6 pb-12">
       <section className="rounded-3xl bg-gradient-to-br from-clin-blue-500 via-clin-blue-400 to-clin-blue-600 p-6 text-white shadow-xl">
-        <span className="text-xs font-semibold uppercase tracking-wide text-white/80">Insights em tempo real</span>
-        <h1 className="mt-2 text-3xl font-semibold leading-tight">Relatórios e Analytics</h1>
-        <p className="mt-3 text-sm text-clin-blue-50/90">Visualize riscos por departamento, monitore tendências e direcione ações preventivas com rapidez.</p>
+        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <div className="md:max-w-xl text-left">
+            <span className="text-xs font-semibold uppercase tracking-wide text-white/80">Insights em tempo real</span>
+            <h1 className="mt-2 text-3xl font-semibold leading-tight">Relatórios e Analytics</h1>
+            <p className="mt-3 text-sm text-clin-blue-50/90">Visualize riscos por departamento, monitore tendências e direcione ações preventivas com rapidez.</p>
+          </div>
+        </div>
       </section>
 
       {/* Metrics Section */}

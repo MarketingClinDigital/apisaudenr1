@@ -65,24 +65,25 @@ const Index: React.FC = () => {
   return (
     <div className="space-y-6 pb-10">
       <section className="rounded-3xl bg-gradient-to-br from-clin-blue-500 via-clin-blue-400 to-clin-blue-600 p-6 text-white shadow-xl">
-        <div className="flex flex-col gap-5">
-          
-          <h1 className="text-3xl font-semibold leading-tight">Solução Digital para NR1</h1>
-          <p className="text-sm text-clin-blue-50/90">
-            Triagens inteligentes, teleorientação conectada e analytics para decisões rápidas em saúde ocupacional.
-          </p>
-          <div className="flex flex-wrap gap-3">
-            <Link to="/triagem">
-              <Button className="rounded-full bg-white px-6 py-3 text-clin-blue-600 hover:bg-white/90">
-                Iniciar Triagem
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
-            <Link to="/relatorios">
-              <Button variant="outline" className="rounded-full border-white/40 bg-white/10 px-6 py-3 text-white hover:bg-white/20 hover:text-white">
-                Ver Relatórios
-              </Button>
-            </Link>
+        <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+          <div className="md:max-w-xl text-left">
+            <h1 className="text-3xl font-semibold leading-tight">Solução Digital para NR1</h1>
+            <p className="mt-2 text-sm text-clin-blue-50/90">
+              Triagens inteligentes, teleorientação conectada e analytics para decisões rápidas em saúde ocupacional.
+            </p>
+            <div className="mt-3 flex flex-wrap gap-3">
+              <Link to="/triagem">
+                <Button className="rounded-full bg-white px-6 py-3 text-clin-blue-600 hover:bg-white/90">
+                  Iniciar Triagem
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+              <Link to="/relatorios">
+                <Button variant="outline" className="rounded-full border-white/40 bg-white/10 px-6 py-3 text-white hover:bg-white/20 hover:text-white">
+                  Ver Relatórios
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </section>

@@ -5,8 +5,148 @@ export interface PdfSection {
 
 const escapePdfText = (value: string) => value.replace(/([()\\])/g, '\\$1');
 
+const winAnsiMap: Record<string, number> = {
+  '€': 128,
+  '‚': 130,
+  'ƒ': 131,
+  '„': 132,
+  '…': 133,
+  '†': 134,
+  '‡': 135,
+  'ˆ': 136,
+  '‰': 137,
+  'Š': 138,
+  '‹': 139,
+  'Œ': 140,
+  'Ž': 142,
+  '‘': 145,
+  '’': 146,
+  '“': 147,
+  '”': 148,
+  '•': 149,
+  '–': 150,
+  '—': 151,
+  '˜': 152,
+  '™': 153,
+  'š': 154,
+  '›': 155,
+  'œ': 156,
+  'ž': 158,
+  'Ÿ': 159,
+  '¡': 161,
+  '¢': 162,
+  '£': 163,
+  '¤': 164,
+  '¥': 165,
+  '¦': 166,
+  '§': 167,
+  '¨': 168,
+  '©': 169,
+  'ª': 170,
+  '«': 171,
+  '¬': 172,
+  '®': 174,
+  '¯': 175,
+  '°': 176,
+  '±': 177,
+  '²': 178,
+  '³': 179,
+  '´': 180,
+  'µ': 181,
+  '¶': 182,
+  '·': 183,
+  '¸': 184,
+  '¹': 185,
+  'º': 186,
+  '»': 187,
+  '¼': 188,
+  '½': 189,
+  '¾': 190,
+  '¿': 191,
+  'À': 192,
+  'Á': 193,
+  'Â': 194,
+  'Ã': 195,
+  'Ä': 196,
+  'Å': 197,
+  'Æ': 198,
+  'Ç': 199,
+  'È': 200,
+  'É': 201,
+  'Ê': 202,
+  'Ë': 203,
+  'Ì': 204,
+  'Í': 205,
+  'Î': 206,
+  'Ï': 207,
+  'Ð': 208,
+  'Ñ': 209,
+  'Ò': 210,
+  'Ó': 211,
+  'Ô': 212,
+  'Õ': 213,
+  'Ö': 214,
+  '×': 215,
+  'Ø': 216,
+  'Ù': 217,
+  'Ú': 218,
+  'Û': 219,
+  'Ü': 220,
+  'Ý': 221,
+  'Þ': 222,
+  'ß': 223,
+  'à': 224,
+  'á': 225,
+  'â': 226,
+  'ã': 227,
+  'ä': 228,
+  'å': 229,
+  'æ': 230,
+  'ç': 231,
+  'è': 232,
+  'é': 233,
+  'ê': 234,
+  'ë': 235,
+  'ì': 236,
+  'í': 237,
+  'î': 238,
+  'ï': 239,
+  'ð': 240,
+  'ñ': 241,
+  'ò': 242,
+  'ó': 243,
+  'ô': 244,
+  'õ': 245,
+  'ö': 246,
+  '÷': 247,
+  'ø': 248,
+  'ù': 249,
+  'ú': 250,
+  'û': 251,
+  'ü': 252,
+  'ý': 253,
+  'þ': 254,
+  'ÿ': 255,
+};
+
+const encodeWinAnsiBuffer = (text: string): Uint8Array => {
+  const bytes: number[] = [];
+  for (const char of text) {
+    const code = char.charCodeAt(0);
+    if (code <= 0x7f) {
+      bytes.push(code);
+    } else if (winAnsiMap[char] !== undefined) {
+      bytes.push(winAnsiMap[char]);
+    } else {
+      bytes.push(63); // '?'
+    }
+  }
+  return new Uint8Array(bytes);
+};
+
+const getByteLength = (text: string) => encodeWinAnsiBuffer(text).length;
+
 const buildPlaceholderPdfBlob = (title: string, sections: PdfSection[]) => {
-  const encoder = new TextEncoder();
   const lines: string[] = [
     title,
     'Documento demonstrativo gerado para apresentação.',
@@ -41,16 +181,16 @@ const buildPlaceholderPdfBlob = (title: string, sections: PdfSection[]) => {
   };
 
   const streamContent = buildContentStream();
-  const streamLength = encoder.encode(streamContent).length;
+  const streamLength = getByteLength(streamContent);
 
   const parts: string[] = ['%PDF-1.4\n'];
   const offsets: number[] = [0];
-  let currentLength = encoder.encode(parts[0]).length;
+  let currentLength = getByteLength(parts[0]);
 
   const addObject = (content: string) => {
     offsets.push(currentLength);
     parts.push(content);
-    currentLength += encoder.encode(content).length;
+    currentLength += getByteLength(content);
   };
 
   addObject('1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n');
@@ -62,7 +202,7 @@ const buildPlaceholderPdfBlob = (title: string, sections: PdfSection[]) => {
     `4 0 obj\n<< /Length ${streamLength} >>\nstream\n${streamContent}\nendstream\nendobj\n`,
   );
   addObject(
-    '5 0 obj\n<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>\nendobj\n',
+    '5 0 obj\n<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>\nendobj\n',
   );
 
   const xrefOffset = currentLength;
@@ -75,8 +215,17 @@ const buildPlaceholderPdfBlob = (title: string, sections: PdfSection[]) => {
   const trailer = `trailer\n<< /Size ${offsets.length} /Root 1 0 R >>\nstartxref\n${xrefOffset}\n%%EOF`;
   parts.push(trailer);
 
-  const pdfContent = parts.join('');
-  return new Blob([pdfContent], { type: 'application/pdf' });
+  const buffers = parts.map(encodeWinAnsiBuffer);
+  const totalLength = buffers.reduce((sum, buf) => sum + buf.length, 0);
+  const pdfBytes = new Uint8Array(totalLength);
+
+  let offset = 0;
+  buffers.forEach((buffer) => {
+    pdfBytes.set(buffer, offset);
+    offset += buffer.length;
+  });
+
+  return new Blob([pdfBytes], { type: 'application/pdf' });
 };
 
 export const downloadPlaceholderPdf = (
